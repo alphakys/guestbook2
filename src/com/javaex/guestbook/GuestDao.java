@@ -178,7 +178,7 @@ public class GuestDao {
 		    // 3. SQL문 준비 / 바인딩 / 실행
 		
 				String query = "delete from guestbook ";
-		    	   	   query += "where no = ? and name = ? and password = ? ";
+		    	   	   query +="where no = ? and name = ? and password = ? ";
 		    	   	   
 		    	   	   pstmt = conn.prepareStatement(query);	   
 		    	   	   pstmt.setInt(1, no);
@@ -222,9 +222,8 @@ public class GuestDao {
 		    	   	
 		    	   	   count = pstmt.executeUpdate();
 		    	   	  
-		    	   	  if(count==1) { 
-		    	   		  	conn.commit(); 
-		    	   	  }
+		    	   	   conn.commit(); 
+		    	   	  
 		    	   	  
 		}  catch (SQLException e) {
 		    System.out.println("error:" + e);
@@ -244,17 +243,15 @@ public class GuestDao {
 		try {
 		    // 3. SQL문 준비 / 바인딩 / 실행
 		    String query = "update guestbook ";
-		    	   query += "set   name = ?, ";
-				   query += "      password = ?, ";	   
-				   query += "      content = ?, ";
+		    	   query += "set   content = ?, ";			   
 				   query += "      reg_date = sysdate ";
-				   query += "where no = ? ";
+				   query +="where no = ? and name = ? and password = ? ";
 
 		    pstmt = conn.prepareStatement(query);	   
-		    pstmt.setString(1, gv.name);
-		    pstmt.setString(2, gv.pw);
-		    pstmt.setString(3, gv.content);
-		    pstmt.setInt(4, gv.no);
+		    pstmt.setString(1, gv.content);
+		    pstmt.setInt(2, gv.no); 
+		    pstmt.setString(3, gv.name);
+		    pstmt.setString(4, gv.pw);
 		    
 		    // 4. 결과처리
 		   count = pstmt.executeUpdate();

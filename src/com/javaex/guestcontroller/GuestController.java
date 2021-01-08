@@ -85,7 +85,11 @@ public class GuestController extends HttpServlet {
 			
 			else if("upForm".equals(action)) {
 				
+				int no = Integer.parseInt(request.getParameter("no"));
 				rd = request.getRequestDispatcher("./WEB-INF/updateForm.jsp?no="+request.getParameter("no"));
+				
+				
+				request.setAttribute("guest", gd.getGuest(no));
 				
 				rd.forward(request, response);
 			}
@@ -99,11 +103,21 @@ public class GuestController extends HttpServlet {
 				
 				GuestVo gv = new GuestVo(no, name, password, content);
 				
-				gd.update(gv);
+				int result = gd.update(gv);
 				
-				response.sendRedirect("./gbc?action=list");
+				if(result==1) {
+					response.sendRedirect("./gbc?action=list");
+				}
+				else{
+					
+					response.sendRedirect("./gbc?action=upForm&no="+request.getParameter("no"));
+				}
 				
 			}
+			
+			
+			
+			
 			
 	}
 
