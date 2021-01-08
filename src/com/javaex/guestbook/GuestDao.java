@@ -244,9 +244,9 @@ public class GuestDao {
 		try {
 		    // 3. SQL문 준비 / 바인딩 / 실행
 		    String query = "update guestbook ";
-		    	   query += "set   name = ? ";
-				   query += "      password = ? ";	   
-				   query += "      content = ? ";
+		    	   query += "set   name = ?, ";
+				   query += "      password = ?, ";	   
+				   query += "      content = ?, ";
 				   query += "      reg_date = sysdate ";
 				   query += "where no = ? ";
 
@@ -254,7 +254,7 @@ public class GuestDao {
 		    pstmt.setString(1, gv.name);
 		    pstmt.setString(2, gv.pw);
 		    pstmt.setString(3, gv.content);
-		    pstmt.setString(4, gv.date);
+		    pstmt.setInt(4, gv.no);
 		    
 		    // 4. 결과처리
 		   count = pstmt.executeUpdate();

@@ -33,6 +33,7 @@ public class GuestController extends HttpServlet {
 			
 			if("list".equals(action)) {
 				
+				
 				List<GuestVo> gList = gd.getList();
 				
 				rd = request.getRequestDispatcher("./WEB-INF/list.jsp");
@@ -89,7 +90,20 @@ public class GuestController extends HttpServlet {
 				rd.forward(request, response);
 			}
 			
-			
+			else if("update".equals(action)) {
+				
+				String name = request.getParameter("name");
+				String password = request.getParameter("password");
+				String content = request.getParameter("content");
+				int no = Integer.parseInt(request.getParameter("no"));
+				
+				GuestVo gv = new GuestVo(no, name, password, content);
+				
+				gd.update(gv);
+				
+				response.sendRedirect("./gbc?action=list");
+				
+			}
 			
 	}
 

@@ -18,7 +18,13 @@ public class GuestVo {
 		this.date = date;
 	}
 	
+	public GuestVo(int no, String name, String pw, String content) {
+		this.no = no;
+		this.name = name;
+		this.pw = pw;
+		this.content = content;
 	
+	}
 	
 	public GuestVo(String name, String pw, String content, String date) {
 	
