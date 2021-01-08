@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.javaex.guestbook.GuestDao;
-import com.javaex.guestbook.GuestVo;
+import com.javaex.guestdao.GuestDao;
+import com.javaex.guestvo.GuestVo;
+import com.javaex.util.WebUtil;
 
 @WebServlet("/gbc")
 public class GuestController extends HttpServlet {
@@ -35,20 +36,18 @@ public class GuestController extends HttpServlet {
 				
 				
 				List<GuestVo> gList = gd.getList();
+				request.setAttribute("guestList", gList);				
 				
-				rd = request.getRequestDispatcher("./WEB-INF/list.jsp");
-				request.setAttribute("guestList", gList);
+				WebUtil.forward("./WEB-INF/list.jsp", request, response);
 				
-				rd.forward(request, response);
 				
 			}
 		
 			else if("delForm".equals(action)) {
 				int no = Integer.parseInt(request.getParameter("no"));
 				
-				rd = request.getRequestDispatcher("./WEB-INF/deleteForm.jsp?no="+request.getParameter("no"));
-				
-				rd.forward(request, response);
+				//파일 위치
+				WebUtil.forward("./WEB-INF/deleteForm.jsp", request, response);
 			}
 			
 			else if("delete".equals(action)) {
@@ -60,11 +59,14 @@ public class GuestController extends HttpServlet {
 				int result = gd.delete(no, name, password);
 				
 				if(result==1) {
-					response.sendRedirect("./gbc?action=list");
+					WebUtil.redirect("./gbc?action=list", response);
 				}
+				
 				else{
 					
-					response.sendRedirect("./gbc?action=delForm&no="+request.getParameter("no"));
+					request.setAttribute("result", result);
+					WebUtil.forward("./WEB-INF/deleteForm.jsp", request, response);
+					//url
 				}
 			
 				
@@ -79,19 +81,17 @@ public class GuestController extends HttpServlet {
 				GuestVo gv = new GuestVo(name, password, content);
 				gd.insert(gv);
 				
-				response.sendRedirect("./gbc?action=list");
+				WebUtil.redirect("./gbc?action=list", response);
 				
 			}
 			
 			else if("upForm".equals(action)) {
 				
 				int no = Integer.parseInt(request.getParameter("no"));
-				rd = request.getRequestDispatcher("./WEB-INF/updateForm.jsp?no="+request.getParameter("no"));
 				
-				
-				request.setAttribute("guest", gd.getGuest(no));
-				
-				rd.forward(request, response);
+				request.setAttribute("guest", gd.getGuest(no));				
+
+				WebUtil.forward("./WEB-INF/updateForm.jsp", request, response);
 			}
 			
 			else if("update".equals(action)) {
@@ -106,16 +106,26 @@ public class GuestController extends HttpServlet {
 				int result = gd.update(gv);
 				
 				if(result==1) {
-					response.sendRedirect("./gbc?action=list");
+					WebUtil.redirect("./gbc?action=list", response);
+					
+					
 				}
 				else{
 					
-					response.sendRedirect("./gbc?action=upForm&no="+request.getParameter("no"));
+					request.setAttribute("guest", gd.getGuest(no));
+					request.setAttribute("result",result);
+					
+					WebUtil.forward("./WEB-INF/updateForm.jsp", request, response);
+					
 				}
 				
 			}
 			
-			
+			else {
+				
+				WebUtil.redirect("./gbc?action=list", response);
+				
+			}
 			
 			
 			

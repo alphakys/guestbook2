@@ -1,11 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.javaex.guestbook.*" %>
-
+<%@ page import="com.javaex.guestdao.*" %>
+<%@ page import="com.javaex.guestvo.*" %>
 <%
 int no = Integer.parseInt(request.getParameter("no"));
 
-GuestVo gv = (GuestVo)request.getAttribute("guest");
-
+	GuestVo gv = (GuestVo)request.getAttribute("guest");
+	
+	int result;
+	try{
+		result = (Integer)request.getAttribute("result");
+	}catch(NullPointerException e){
+		result=1;
+	}
+	
+	
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -18,6 +27,10 @@ GuestVo gv = (GuestVo)request.getAttribute("guest");
 		<h3>수정을 하기 위해서 비밀번호를 입력해주세요</h3><br>
 		<p>비밀번호가 틀릴시 현재 화면으로 되돌아옵니다</p>
 		
+		<%if(result==0){ %>
+		비밀번호가 틀렸습니다 다시 입력해주세요
+		
+		<%} %>
 		<form action="gbc">
 		
 		<input type = "hidden" name = "action" value="update">

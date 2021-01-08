@@ -1,4 +1,4 @@
-package com.javaex.guestbook;
+package com.javaex.guestdao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.javaex.guestvo.GuestVo;
 
 public class GuestDao {
 	
@@ -166,41 +168,6 @@ public class GuestDao {
 		return gv;
 		
 	}
-	
-	//비밀번호 아이디 맞는지 체크만 하는 기능
-	
-	public int check(int no, String name, String password){
-		
-		getConnection();
-		
-		
-		try {
-		    // 3. SQL문 준비 / 바인딩 / 실행
-		
-				String query = "delete from guestbook ";
-		    	   	   query +="where no = ? and name = ? and password = ? ";
-		    	   	   
-		    	   	   pstmt = conn.prepareStatement(query);	   
-		    	   	   pstmt.setInt(1, no);
-		    	   	   pstmt.setString(2, name);
-		    	   	   pstmt.setString(3, password);
-		    	   	
-		    	   	   count = pstmt.executeUpdate();
-	
-		    
-		    
-		}  catch (SQLException e) {
-		    System.out.println("error:" + e);
-		} 
-		
-		close();
-		
-		return count;
-	}
-	
-	
-	
-	
 	
 	
 	//DB에서 삭제

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ page import="com.javaex.guestbook.*" %>
+<%@ page import="com.javaex.guestdao.*" %>
+<%@ page import="com.javaex.guestvo.*" %>
 <%@ page import="java.util.List" %>
 
 
