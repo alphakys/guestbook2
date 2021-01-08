@@ -61,9 +61,9 @@ public class GuestController extends HttpServlet {
 					response.sendRedirect("./gbc?action=list");
 				}
 				else{
-					response.getWriter().print("비밀번호나 이름이 틀렸습니다\n 다시 입력하시겠습니까?");
 					
-					response.sendRedirect("./gbc?action=delForm");
+					
+					response.sendRedirect("./gbc?action=delForm&no="+request.getParameter("no"));
 				}
 				
 				
