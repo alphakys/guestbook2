@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<% int no = (Integer)request.getAttribute("no"); %>
+<% int no = Integer.parseInt(request.getParameter("no")); %>
 
 <!DOCTYPE html>
 
@@ -20,5 +20,8 @@
 		<br>
 		<button type="submit">확인</button>
 	</form>
+	
+	<br><br>
+	<a href = "gbc?action=list">리스트로 돌아가기</a>
 </body>
 </html>

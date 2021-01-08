@@ -22,6 +22,7 @@ public class GuestController extends HttpServlet {
 			String action = request.getParameter("action");
 			//String name = request.getParameter("name");
 			//String password = request.getParameter("password");
+			//String content = request.getParameter("content");
 			//int no = Integer.parseInt(request.getParameter("no"));
 
 			
@@ -44,8 +45,8 @@ public class GuestController extends HttpServlet {
 			else if("delForm".equals(action)) {
 				int no = Integer.parseInt(request.getParameter("no"));
 				
-				rd = request.getRequestDispatcher("./WEB-INF/deleteForm.jsp");
-				request.setAttribute("no", no);
+				rd = request.getRequestDispatcher("./WEB-INF/deleteForm.jsp?no="+request.getParameter("no"));
+				
 				rd.forward(request, response);
 			}
 			
@@ -62,16 +63,31 @@ public class GuestController extends HttpServlet {
 				}
 				else{
 					
-					
 					response.sendRedirect("./gbc?action=delForm&no="+request.getParameter("no"));
 				}
-				
+			
 				
 			}
 			
+			else if("insert".equals(action)) {
+				
+				String name = request.getParameter("name");
+				String password = request.getParameter("password");
+				String content = request.getParameter("content");
+				
+				GuestVo gv = new GuestVo(name, password, content);
+				gd.insert(gv);
+				
+				response.sendRedirect("./gbc?action=list");
+				
+			}
 			
-			
-			
+			else if("upForm".equals(action)) {
+				
+				rd = request.getRequestDispatcher("./WEB-INF/updateForm.jsp?no="+request.getParameter("no"));
+				
+				rd.forward(request, response);
+			}
 			
 			
 			

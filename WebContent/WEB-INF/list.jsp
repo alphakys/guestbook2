@@ -15,7 +15,8 @@
 </head>
 <body>
 
-	<form>
+	<form action="gbc">
+		<input type = "hidden" name = "action" value="insert">
 		<table border='1'>
 	
 			<tr>
@@ -26,7 +27,7 @@
 			</tr>
 			
 			<tr>
-				<td colspan='4'><textarea cols='60' rows='15'></textarea></td>		
+				<td colspan='4'><textarea name="content" cols='60' rows='15'></textarea></td>		
 			</tr>
 		
 			<tr>
@@ -44,7 +45,10 @@
 					<td><%=gList.get(i).no%></td>
 					<td><%=gList.get(i).name%></td>
 					<td><%=gList.get(i).date%></td>
-					<td><a href="./gbc?action=delForm&no=<%=gList.get(i).no%>">삭제</a></td>
+					<td>
+						<a href="./gbc?action=delForm&no=<%=gList.get(i).no%>">삭제</a>
+						<a href="./gbc?action=upForm&no=<%=gList.get(i).no%>">수정</a>
+					</td>
 				</tr>
 				
 				<tr>
