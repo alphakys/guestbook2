@@ -169,7 +169,7 @@ public class GuestDao {
 		
 	}
 	
-	
+
 	//DB에서 삭제
 	public int delete(int no, String name, String password){
 		
